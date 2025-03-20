@@ -89,7 +89,8 @@ print(predicted_rating)
 model.save('julian.h5')
 label_encoders = {
     'album': album_encoder,
-    'artist': artist_encoder
+    'artist': artist_encoder,
+    'tags': mlb
 }
 with open('label_encoders.pkl', 'wb') as f:
     pickle.dump(label_encoders, f)
