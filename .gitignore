@@ -29,3 +29,6 @@ front-end/*.sw?
 back-end/.venv
 back-end/.env
 back-end/fantano_ratings_with_tags.csv
+
+*.h5
+*.pkl
