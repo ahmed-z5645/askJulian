@@ -32,3 +32,5 @@ back-end/fantano_ratings_with_tags.csv
 
 *.h5
 *.pkl
+*.csv
+*.pyc

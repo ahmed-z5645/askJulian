@@ -9,7 +9,6 @@ app = FastAPI()
 model = tf.keras.models.load_model("C:/Users/ahmed/Downloads/iHateYouJulian/askJulian/back-end/julian.h5")
 model.compile(optimizer="adam", loss="mean_squared_error")
 
-print(model.loss)
 # Load label encoders once
 with open("C:/Users/ahmed/Downloads/iHateYouJulian/askJulian/back-end/label_encoders.pkl", "rb") as f:
     label_encoders = pickle.load(f)
@@ -29,12 +28,11 @@ def mlb_tags(tags):
     return label_encoders["tags"].transform([tags])[0]
 
 #cant beleive this is the only api end point for now lol
-@app.get("/albums/getRating/{artist}/{album}")
+@app.get("/albums/getRating")
 def get_rating(artist: str, album: str):
     image, year, tags = getLastFMInfo(artist, album)
     
     try:
-        print("here")
         album_encoded = encode_album_name(album)
         artist_encoded = encode_artist(artist)
         tags_list = tags.split(",") 
@@ -44,12 +42,11 @@ def get_rating(artist: str, album: str):
         input_data = [np.array([[album_encoded]]), np.array([[artist_encoded]]), np.array([[int(year)]]), np.array([tags_encoded])]
         
         prediction = model.predict(input_data)[0][0]
-        print(prediction)
-        return {"predicted_rating": round(prediction, 1)}
+        return {"predicted_rating": round(float(prediction), 2),
+                "image": image,
+                "year": year}
 
     except Exception as e:
         print("error:", str(e))
         return {"error": str(e)}
-    
-get_rating("tyler, the creator", "igor")
 
