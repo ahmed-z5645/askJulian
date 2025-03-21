@@ -7,7 +7,9 @@ load_dotenv()
 
 API_KEY = os.getenv('LASTFM_API_KEY')
 
-df = pd.read_csv("C:/Users/ahmed/Downloads/iHateYouJulian/archive/fantano_ratings.csv")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+needed_path = os.path.join(script_dir, "fantano_ratings.csv")
+df = pd.read_csv(needed_path)
 # Function to fetch top 5 tags from Last.fm
 def get_album_tags(artist, album):
     if album != "self-titled":
