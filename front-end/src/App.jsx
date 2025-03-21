@@ -41,7 +41,7 @@ function App() {
         <div className="title">
           <h1>julian</h1>
           <h3>Your Programmed Music <br />Enthusiast</h3>
-          <p>I'm glad you made it. I'm Julian, an artificial intelligence model designed to have a better in music taste than you. 
+          <p>I'm glad you made it. I'm Julian, an artificial intelligence model designed to have a better taste in music than you. 
             <br />Give me an album or song, and I'll let you know what I think about it</p>
         </div>
         <div className="func">
