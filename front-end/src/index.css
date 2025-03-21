@@ -45,12 +45,12 @@ h1 {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  padding-top: 1.4em;
-  font-size: 1em;
+  padding: 0.498vw 0.996vw;
+  padding-top: 1.162vw;
+  font-size: 0.83vw;
   font-weight: 500;
   font-family: Borel;
-  line-height: 0.5em;
+  line-height: 0.415vw;
   background-color: #1a1a1a;
   cursor: pointer;
   color: #e59500
