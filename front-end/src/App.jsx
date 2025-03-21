@@ -18,14 +18,16 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+  const ENDPOINT = import.meta.env.BACKEND_API_URL
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(formData)
     try {
-      const res =  await axios.get("http://localhost:8000/albums/getRating", {
+      const res =  await axios.get(`${ENDPOINT}/albums/getRating`, {
         params: formData,
         headers: { "Content-Type": "application/json"}})
 
+      console.log(res.data)
       setResponse(res.data)
     } catch (error) {
       setResponse({error: error.message})
@@ -115,8 +117,10 @@ function App() {
                           fontWeight:"1000",
                           margin:"0",
                           marginTop:"5%",
-                          lineHeight:"0"}}><span style={{fontFamily: "Borel"}}>{response["predicted_rating"]}</span> / 10</p>
-                <p>{ratingResponses[Math.floor(parseFloat(response["predicted_rating"])) + 1][Math.floor(parseFloat(response["predicted_rating"]) * 10) % 3]}</p>
+                          lineHeight:"0"}}><span style={{fontFamily: "Borel"}}>{((response["artist"] == "clairo") && (response["album"] == "sling")) ? 11: response["predicted_rating"]}</span> / 10</p>
+                <p>{((response["artist"] == "clairo") && (response["album"] == "sling")) ? 
+                    <>This is what real music is, nothing else will ever compare</> : 
+                    ratingResponses[Math.floor(parseFloat(response["predicted_rating"])) + 1][Math.floor(parseFloat(response["predicted_rating"]) * 10) % 3]}</p>
                 </> )): null}
             </div>
             </>}
