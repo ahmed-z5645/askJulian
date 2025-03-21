@@ -37,6 +37,10 @@ def mlb_tags(tags):
     label_encoders["tags"].classes_ = np.unique(all_classes)  # Update MLB classes_
     return label_encoders["tags"].transform([tags])[0]
 
+@app.get("/")
+def test():
+    return {"message": "API is up and running :)"}
+
 #cant beleive this is the only api end point for now lol
 @app.get("/albums/getRating")
 def get_rating(artist: str, album: str):
