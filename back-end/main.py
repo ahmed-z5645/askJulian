@@ -1,6 +1,7 @@
 from typing import Union
 from infoUtils import getLastFMInfo
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import tensorflow as tf
 import pickle
 import numpy as np
@@ -9,6 +10,7 @@ app = FastAPI()
 model = tf.keras.models.load_model("C:/Users/ahmed/Downloads/iHateYouJulian/askJulian/back-end/julian.h5")
 model.compile(optimizer="adam", loss="mean_squared_error")
 
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 # Load label encoders once
 with open("C:/Users/ahmed/Downloads/iHateYouJulian/askJulian/back-end/label_encoders.pkl", "rb") as f:
     label_encoders = pickle.load(f)
@@ -30,6 +32,8 @@ def mlb_tags(tags):
 #cant beleive this is the only api end point for now lol
 @app.get("/albums/getRating")
 def get_rating(artist: str, album: str):
+    artist = artist.lower()
+    album = album.lower()
     image, year, tags = getLastFMInfo(artist, album)
     
     try:
@@ -44,7 +48,9 @@ def get_rating(artist: str, album: str):
         prediction = model.predict(input_data)[0][0]
         return {"predicted_rating": round(float(prediction), 2),
                 "image": image,
-                "year": year}
+                "year": year,
+                "artist": artist,
+                "album": album}
 
     except Exception as e:
         print("error:", str(e))
