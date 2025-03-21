@@ -5,12 +5,20 @@ from fastapi.middleware.cors import CORSMiddleware
 import tensorflow as tf
 import pickle
 import numpy as np
-
-app = FastAPI()
-model = tf.keras.models.load_model("C:/Users/ahmed/Downloads/iHateYouJulian/askJulian/back-end/julian.h5")
+import os
+script_dir = os.path.dirname(os.path.abspath(__file__))
+needed_path = os.path.join(script_dir, "julian.h5")
+app = FastAPI(debug=False)
+model = tf.keras.models.load_model(needed_path)
 model.compile(optimizer="adam", loss="mean_squared_error")
 
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, 
+                   allow_origins=["http://localhost:5173",
+                                  "https://askjulian.xyz"], 
+                   allow_methods=["*"], 
+                   allow_headers=["*"])
+
+pickle_path = os.path.join(script_dir, "label_encoders.pkl")
 # Load label encoders once
 with open("C:/Users/ahmed/Downloads/iHateYouJulian/askJulian/back-end/label_encoders.pkl", "rb") as f:
     label_encoders = pickle.load(f)
