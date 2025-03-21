@@ -18,7 +18,7 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const ENDPOINT = import.meta.env.BACKEND_API_URL
+  const ENDPOINT = import.meta.env.VITE_BACKEND_API_URL
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(formData)
