@@ -6,9 +6,12 @@ from tensorflow.keras import layers, models
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from utils import pad_tags
+import os
 
 # Load the dataset
-df = pd.read_csv('C:/Users/ahmed/Downloads/iHateYouJulian/askJulian/back-end/fantano_ratings_with_tags.csv')  # Update with the correct path
+script_dir = os.path.dirname(os.path.abspath(__file__))
+needed_path = os.path.join(script_dir, "fantano_ratings_with_tags.csv")
+df = pd.read_csv(needed_path)
 
 # Encode album and artist names as int using LabelEncoder from sklearn
 album_encoder, artist_encoder = LabelEncoder(), LabelEncoder()
