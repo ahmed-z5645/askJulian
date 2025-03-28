@@ -22,6 +22,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(formData)
+    setResponse(false);
     try {
       const res =  await axios.get(`${ENDPOINT}/albums/getRating`, {
         params: formData,
@@ -121,7 +122,7 @@ function App() {
                 <p>{((response["artist"] == "clairo") && (response["album"] == "sling")) ? 
                     <>This is what real music is, nothing else will ever compare</> : 
                     ratingResponses[Math.floor(parseFloat(response["predicted_rating"])) + 1][Math.floor(parseFloat(response["predicted_rating"]) * 10) % 3]}</p>
-                </> )): null}
+                </> )): (response == null) ? null : <><p>LOADING</p></>}
             </div>
             </>}
         </div>
